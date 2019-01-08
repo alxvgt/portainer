@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+    portainer:
+        container_name: portainer
+        image: portainer/portainer
+        command: '-H unix:///var/run/docker.sock'
+        restart: always
+        ports:
+            - '9000:9000'
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+            - '/var/portainer/data:/data'
+    cadvisor:
+        container_name: cadvisor
+        image: google/cadvisor
+        restart: always
+        ports:
+            - '8080:8080'
+        volumes:
+            - '/:/rootfs:ro'
+            - '/var/run:/var/run:rw'
+            - '/sys:/sys:ro'
+            - '/var/lib/docker/:/var/lib/docker:ro'
