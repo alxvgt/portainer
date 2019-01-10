@@ -4,21 +4,35 @@ services:
     portainer:
         container_name: portainer
         image: portainer/portainer
+        environment:
+            - VIRTUAL_HOST=portainer.418.ovh
+            - VIRTUAL_PORT=9000
         command: '-H unix:///var/run/docker.sock'
         restart: always
         ports:
             - '9000:9000'
+        networks:
+            - network-proxy
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
             - '/var/portainer/data:/data'
     cadvisor:
         container_name: cadvisor
         image: google/cadvisor
+        environment:
+            - VIRTUAL_HOST=cadvisor.418.ovh
+            - VIRTUAL_PORT=8080
         restart: always
         ports:
             - '8080:8080'
+        networks:
+            - network-proxy
         volumes:
             - '/:/rootfs:ro'
             - '/var/run:/var/run:rw'
             - '/sys:/sys:ro'
             - '/var/lib/docker/:/var/lib/docker:ro'
+networks:
+    network-proxy:
+        external:
+            name: network-proxy
