@@ -2,7 +2,6 @@ version: '3'
 
 services:
     portainer:
-        container_name: portainer
         image: portainer/portainer-ce
         environment:
             - VIRTUAL_HOST=portainer.418.ovh
@@ -11,12 +10,6 @@ services:
         restart: always
         ports:
             - '80:9000'
-        networks:
-            - network-proxy
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
             - '/var/portainer/data:/data'
-networks:
-    network-proxy:
-        external:
-            name: network-proxy
