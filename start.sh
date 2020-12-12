@@ -2,7 +2,7 @@ printf "\n\033[31m--------------------------------------------------------------
 printf "\n\033[31m Stopping and clenaning docker environment \033[0m"
 printf "\n\033[31m--------------------------------------------------------------------------\033[0m"
 printf "\n"
-docker swarm leave
+docker swarm leave --force
 docker system prune --all --force
 
 
