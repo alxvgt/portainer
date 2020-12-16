@@ -10,3 +10,16 @@ services:
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
             - '/var/portainer/data:/data'
+        networks:
+            - shared-proxy
+        deploy:
+            labels:
+                - "traefik.enable=true"
+                - "traefik.http.routers.portainer.rule=Host(`portainer.418.ovh`)"
+                - "traefik.http.routers.portainer.tls=true"
+                - "traefik.http.routers.portainer.tls.certresolver=mytlschallenge"
+                - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+
+networks:
+    shared-proxy:
+        external: true
