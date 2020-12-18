@@ -16,6 +16,7 @@ services:
             labels:
                 - "traefik.enable=true"
                 - "traefik.http.routers.portainer.rule=Host(`portainer.418.ovh`)"
+                - "traefik.docker.network=shared-proxy"
                 - "traefik.http.routers.portainer.tls=true"
                 - "traefik.http.routers.portainer.tls.certresolver=mytlschallenge"
                 - "traefik.http.services.portainer.loadbalancer.server.port=9000"
